@@ -91,7 +91,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
     chmod 755 /docker-entrypoint.d/30-php-fpm.sh && \
     printf "# priority=40\nservice cron start\n" > /docker-entrypoint.d/40-cron.sh && \
     chmod 755 /docker-entrypoint.d/10-ntpd.sh && \    
-    chmod 755 /docker-entrypoint.d/50-php-fpm.sh && \
+    chmod 755 /docker-entrypoint.d/30-php-fpm.sh && \
     chmod 755 /docker-entrypoint.d/40-start.sh && \
     chmod 755 /docker-entrypoint.d/40-cron.sh && \
     mkdir -p ~/.mutt/cache/headers && \
