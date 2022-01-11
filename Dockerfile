@@ -104,3 +104,4 @@ ADD config_cntr/www.conf /etc/php/8.0/fpm/pool.d/www.conf
 ADD config_cntr/cron.list /
 ADD config_cntr/nginx.conf /etc/nginx
 ADD config_cntr/default.conf /etc/nginx/conf.d
+ADD config_cntr/muttrc.template /
