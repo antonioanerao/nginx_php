@@ -22,7 +22,7 @@ if [ -f /code/config_cntr/php.ini ] || [ -f /code/config_cntr/www.conf ]
 then
   cp /code/config_cntr/php.ini /etc/php/8.0/fpm/php.ini
   cp /code/config_cntr/www.conf /etc/php/8.0/fpm/pool.d/www.conf
-  service php7.4-fpm restart
+  service php8.0-fpm restart
 fi
 
 if [ -f /code/config_cntr/nginx.conf ] || [ -f /code/config_cntr/default.conf ]
