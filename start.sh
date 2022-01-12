@@ -11,6 +11,13 @@ then
 fi
 chmod -R 777 /code 
 
+if [ -d /scripts_init ];
+then
+  for f in /scripts_init/*; 
+    do $f; 
+  done
+fi
+
 if [ -d /code/scripts_init ];
 then
   for f in /code/scripts_init/*; 

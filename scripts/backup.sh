@@ -25,7 +25,7 @@ then
   printf "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n" >> ~/${HOSTNAME}.log
   rsync -aruvhcpt --progress \
   --rsh="sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no -l $SSH_USER" \
-  -z --compress-level=9 /bkp/* $SSH_USER@$BKP_PATH/imagens/banco/  >> ~/${HOSTNAME}.log
+  -z --compress-level=9 /bkp/* $SSH_USER@$BKP_PATH/banco/  >> ~/${HOSTNAME}.log
 fi
 
 if [ -n $BKP_PATH ] && [ -n $SSH_USER ] && [ -n $BKP_PATH ] 
@@ -35,7 +35,7 @@ then
   printf "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n" >> ~/${HOSTNAME}.log
   rsync -aruvhcpt --progress \
   --rsh="sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no -l $SSH_USER" \
-  -z --compress-level=9 /code/* $SSH_USER@$BKP_PATH/imagens/site/  >> ~/${HOSTNAME}.log
+  -z --compress-level=9 /code/* $SSH_USER@$BKP_PATH/site/  >> ~/${HOSTNAME}.log
 fi
 
 printf "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n" >> ~/${HOSTNAME}.log
