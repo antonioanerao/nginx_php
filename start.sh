@@ -2,14 +2,18 @@
 
 if ! [ -z ${GIT_PATH} ]
 then
-  cd /code
+  cd /projeto
   git config --global pull.ff only && \
   git config --global init.defaultBranch master && \
+  git config --global core.fileMode false && \
   git init && \
   git remote add master http://${GIT_USERNAME}:${GIT_PASSWORD}@${GIT_PATH}
-  git pull master master
+  git pull master master  
+  rsync -aruvhcpt --progress /projeto/* /code/
 fi
-chmod -R 777 /code 
+
+chown -R www-data:www-data /code &
+chmod -R 775 /code &
 
 if [ -d /scripts_init ];
 then

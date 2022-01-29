@@ -1,4 +1,4 @@
-FROM nginx:1.21.0
+FROM nginx:1.21.3
 
 VOLUME [ "/code" ]
 
@@ -36,7 +36,6 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
                    g++ \
                    make && \
     locale-gen && \
-    mkdir  /usr/share/man/man1 && \
     curl -o /etc/apt/trusted.gpg.d/php.gpg -fSL "https://packages.sury.org/php/apt.gpg" && \
     curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
     curl -s https://packages.microsoft.com/config/ubuntu/18.04/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
@@ -45,7 +44,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
     add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ && \
     apt -y update && \
     apt -y remove libgcc-8-dev && \
-    apt -y install php8.0 \
+    apt -y install --allow-unauthenticated php8.0 \
                    php8.0-fpm \
                    php8.0-mysql \
                    php8.0-mbstring \
@@ -64,6 +63,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
                    php8.0-bcmath \
                    php8.0-bz2 \
                    php8.0-ctype \
+                   php8.0-dev \
                    unixodbc-dev \
                    msodbcsql17 \
                    mssql-tools \
@@ -75,12 +75,12 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
                    pkg-config \
                    git \
                    adoptopenjdk-8-hotspot && \
-    pecl install sqlsrv pdo_sqlsrv xdebug && \
+    # pecl install sqlsrv pdo_sqlsrv xdebug && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     printf "; priority=20\nextension=sqlsrv.so\n" > /etc/php/8.0/mods-available/sqlsrv.ini && \
     printf "; priority=30\nextension=pdo_sqlsrv.so\n" > /etc/php/8.0/mods-available/pdo_sqlsrv.ini && \
     printf "; priority=30\nextension=xdebug.so\n" > /etc/php/8.0/mods-available/xdebug.ini && \
-    phpenmod -v 8.0 sqlsrv pdo_sqlsrv && \
+    # phpenmod -v 8.0 sqlsrv pdo_sqlsrv && \
     ntpd -q -g && \
     rm -rf /var/lib/apt/lists/* && \
     apt upgrade -y && \
@@ -98,6 +98,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
     chmod 755 /docker-entrypoint.d/40-cron.sh && \
     chmod 755 /scripts_init/* && \
     mkdir -p ~/.mutt/cache/headers && \
+    mkdir /projeto && \
     mkdir ~/.mutt/cache/bodies && \
     touch ~/.mutt/certificates && \
     touch ~/.mutt/muttrc 
