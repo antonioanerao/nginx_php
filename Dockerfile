@@ -75,12 +75,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
                    pkg-config \
                    git \
                    adoptopenjdk-8-hotspot && \
-    # pecl install sqlsrv pdo_sqlsrv xdebug && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    printf "; priority=20\nextension=sqlsrv.so\n" > /etc/php/8.0/mods-available/sqlsrv.ini && \
-    printf "; priority=30\nextension=pdo_sqlsrv.so\n" > /etc/php/8.0/mods-available/pdo_sqlsrv.ini && \
-    printf "; priority=30\nextension=xdebug.so\n" > /etc/php/8.0/mods-available/xdebug.ini && \
-    # phpenmod -v 8.0 sqlsrv pdo_sqlsrv && \
     ntpd -q -g && \
     rm -rf /var/lib/apt/lists/* && \
     apt upgrade -y && \
