@@ -34,7 +34,8 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
                    sshpass \
                    gcc \
                    g++ \
-                   make && \
+                   make \
+                   unzip && \
     locale-gen && \
     curl -o /etc/apt/trusted.gpg.d/php.gpg -fSL "https://packages.sury.org/php/apt.gpg" && \
     curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
@@ -55,6 +56,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
                    php8.0-intl \
                    php8.0-dev \
                    php8.0-curl \
+                   php8.0-cli \
                    php8.0-zip \
                    php8.0-imagick \
                    php8.0-pgsql \
@@ -63,7 +65,9 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
                    php8.0-bcmath \
                    php8.0-bz2 \
                    php8.0-ctype \
-                   php8.0-dev \
+                   php8.0-opcache \                   
+                   php8.0-phar \                   
+                   php8.0-readline \               
                    unixodbc-dev \
                    msodbcsql18 \
                    mssql-tools \
