@@ -65,7 +65,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
                    php8.0-ctype \
                    php8.0-dev \
                    unixodbc-dev \
-                   msodbcsql17 \
+                   msodbcsql18 \
                    mssql-tools \
                    gcc \
                    g++ \
@@ -76,6 +76,9 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
                    git \
                    adoptopenjdk-8-hotspot && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    printf "; priority=20\nextension=sqlsrv.so\n" > /etc/php/8.0/mods-available/sqlsrv.ini && \
+    printf "; priority=30\nextension=pdo_sqlsrv.so\n" > /etc/php/8.0/mods-available/pdo_sqlsrv.ini && \
+    phpenmod -v 8.0 sqlsrv pdo_sqlsrv && \
     ntpd -q -g && \
     rm -rf /var/lib/apt/lists/* && \
     apt upgrade -y && \
@@ -104,3 +107,4 @@ ADD config_cntr/cron.list /
 ADD config_cntr/nginx.conf /etc/nginx
 ADD config_cntr/default.conf /etc/nginx/conf.d
 ADD config_cntr/muttrc.template /
+ADD config_cntr/drivers/* /usr/lib/php/20200930/
