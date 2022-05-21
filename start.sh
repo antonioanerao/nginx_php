@@ -1,13 +1,13 @@
 #!/bin/bash
 
-if ! [ -z ${GIT_PATH} ]
+if ! [ -z ${GIT_USERNAME} ] && [ -z ${GIT_PASSWORD} ] && [ -z ${GIT_PATH} ]
 then
   cd /projeto
   git config --global pull.ff only && \
   git config --global init.defaultBranch master && \
   git config --global core.fileMode false && \
   git init && \
-  git remote add master http://${GIT_USERNAME}:${GIT_PASSWORD}@${GIT_PATH}
+  git remote add master https://${GIT_USERNAME}:${GIT_PASSWORD}@${GIT_PATH}
   git pull master master  
   rsync -aruvhcpt --progress /projeto/* /code/
 fi
@@ -46,4 +46,9 @@ fi
 if ! [ -z ${MAIL_SERVER} ]
 then
   envsubst < /muttrc.template > ~/.mutt/muttrc
+fi
+
+if ! [ -z ${WWWROOT} ]
+then
+  sed -i "s/\/code/${WWWROOT}/g" /etc/nginx/conf.d/default.conf
 fi
