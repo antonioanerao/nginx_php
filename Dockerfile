@@ -8,7 +8,6 @@ WORKDIR /code
 
 ADD start.sh /docker-entrypoint.d/40-start.sh
 ADD scripts_init/* /scripts_init/
-ADD scripts/* /scripts/
 
 RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
     dpkg-reconfigure --frontend noninteractive tzdata && \
@@ -45,29 +44,30 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
     add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ && \
     apt -y update && \
     apt -y remove libgcc-8-dev && \
-    apt -y install --allow-unauthenticated php8.1 \
-                   php8.1-fpm \
-                   php8.1-mysql \
-                   php8.1-mbstring \
-                   php8.1-xmlrpc \
-                   php8.1-soap \
-                   php8.1-gd \
-                   php8.1-xml \
-                   php8.1-intl \
-                   php8.1-dev \
-                   php8.1-curl \
-                   php8.1-cli \
-                   php8.1-zip \
-                   php8.1-imagick \
-                   php8.1-pgsql \
-                   php8.1-gmp \
-                   php8.1-ldap \
-                   php8.1-bcmath \
-                   php8.1-bz2 \
-                   php8.1-ctype \
-                   php8.1-opcache \                   
-                   php8.1-phar \                   
-                   php8.1-readline \               
+    apt -y install --allow-unauthenticated vim php7.4 \
+                   php7.4-fpm \
+                   php7.4-mysql \
+                   php7.4-mbstring \
+                   php7.4-xmlrpc \
+                   php7.4-soap \
+                   php7.4-gd \
+                   php7.4-xml \
+                   php7.4-sqlite3 \
+                   php7.4-intl \
+                   php7.4-dev \
+                   php7.4-curl \
+                   php7.4-cli \
+                   php7.4-zip \
+                   php7.4-imagick \
+                   php7.4-pgsql \
+                   php7.4-gmp \
+                   php7.4-ldap \
+                   php7.4-bcmath \
+                   php7.4-bz2 \
+                   php7.4-ctype \
+                   php7.4-opcache \                   
+                   php7.4-phar \                   
+                   php7.4-readline \               
                    unixodbc-dev \
                    msodbcsql18 \
                    mssql-tools \
@@ -80,9 +80,9 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
                    git \
                    adoptopenjdk-8-hotspot && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
-    printf "; priority=20\nextension=sqlsrv.so\n" > /etc/php/8.1/mods-available/sqlsrv.ini && \
-    printf "; priority=30\nextension=pdo_sqlsrv.so\n" > /etc/php/8.1/mods-available/pdo_sqlsrv.ini && \
-    phpenmod -v 8.1 sqlsrv pdo_sqlsrv && \
+    printf "; priority=20\nextension=sqlsrv.so\n" > /etc/php/7.4/mods-available/sqlsrv.ini && \
+    printf "; priority=30\nextension=pdo_sqlsrv.so\n" > /etc/php/7.4/mods-available/pdo_sqlsrv.ini && \
+    phpenmod -v 7.4 sqlsrv pdo_sqlsrv && \
     ntpd -q -g && \
     rm -rf /var/lib/apt/lists/* && \
     apt upgrade -y && \
@@ -91,7 +91,7 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
     chown -R www-data:www-data /code &&  \
     printf "# priority=10\nservice ntp start\n" > /docker-entrypoint.d/10-ntpd.sh && \
     chmod 755 /docker-entrypoint.d/10-ntpd.sh && \
-    printf "# priority=30\nservice php8.1-fpm start\n" > /docker-entrypoint.d/30-php-fpm.sh && \
+    printf "# priority=30\nservice php7.4-fpm start\n" > /docker-entrypoint.d/30-php-fpm.sh && \
     chmod 755 /docker-entrypoint.d/30-php-fpm.sh && \
     printf "# priority=40\nservice cron start\n" > /docker-entrypoint.d/40-cron.sh && \
     chmod 755 /docker-entrypoint.d/10-ntpd.sh && \    
@@ -105,9 +105,8 @@ RUN ln -fs /usr/share/zoneinfo/America/Rio_Branco /etc/localtime && \
     touch ~/.mutt/certificates && \
     touch ~/.mutt/muttrc 
     
-ADD config_cntr/php.ini /etc/php/8.1/fpm/php.ini
-ADD config_cntr/www.conf /etc/php/8.1/fpm/pool.d/www.conf
-ADD config_cntr/cron.list /
+ADD config_cntr/php.ini /etc/php/7.4/fpm/php.ini
+ADD config_cntr/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 ADD config_cntr/nginx.conf /etc/nginx
 ADD config_cntr/default.conf /etc/nginx/conf.d
 ADD config_cntr/muttrc.template /
