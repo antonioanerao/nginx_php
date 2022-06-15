@@ -1,4 +1,4 @@
-# Imagem Docker para Servidor NGINX com PHP 8.1
+# Imagem Docker para Servidor NGINX com PHP 7.4
 
 
 
